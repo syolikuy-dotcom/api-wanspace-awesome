@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --fg: 15 23 42;
+    --muted: 100 108 124;
+    --card: 255 255 255;
+    --soft: 247 248 250;
+    --line: 229 231 235;
+    --brand: 15 23 42;
+    --brand-fg: 255 255 255;
+    --ok: 22 163 74;
+    --warn: 217 119 6;
+    --bad: 220 38 38;
+    color-scheme: light;
+  }
+  .dark {
+    --bg: 9 9 11;
+    --fg: 244 244 245;
+    --muted: 161 161 170;
+    --card: 17 17 20;
+    --soft: 24 24 27;
+    --line: 42 42 47;
+    --brand: 244 244 245;
+    --brand-fg: 9 9 11;
+    --ok: 74 222 128;
+    --warn: 251 191 36;
+    --bad: 248 113 113;
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-padding-top: 6rem;
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    overflow-x: clip;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  ::selection {
+    background: rgb(var(--brand));
+    color: rgb(var(--brand-fg));
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--fg));
+    outline-offset: 3px;
+  }
+  img, svg { max-width: 100%; }
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@layer utilities {
+  .bg-dots {
+    background-image: radial-gradient(rgb(var(--fg) / 0.13) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%);
+  }
+  .bg-aurora { background: radial-gradient(circle at center, rgb(var(--fg) / 0.09), transparent 65%); }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  }
+  .section { @apply relative mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24; }
+  .label { @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-muted; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .thin-scroll { scrollbar-width: thin; scrollbar-color: rgb(var(--line)) transparent; }
+  .skeleton {
+    background: linear-gradient(90deg, rgb(var(--soft)) 25%, rgb(var(--line)) 37%, rgb(var(--soft)) 63%);
+    background-size: 200% 100%;
+    animation: shimmer 2.2s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee, .animate-marquee-reverse, .animate-marquee-slow, .animate-marquee-slow-reverse,
+  .animate-float, .animate-drift, .animate-drift-slow, .animate-blink, .animate-ping2, .skeleton {
+    animation: none !important;
+  }
+}
